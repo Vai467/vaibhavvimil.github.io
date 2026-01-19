@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaibhav Vimil - Data & Solutions Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #e4e4e7;
+            background: #000000;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at top, rgba(6, 182, 212, 0.15), transparent 50%),
+                        radial-gradient(ellipse at bottom right, rgba(14, 165, 233, 0.15), transparent 50%),
+                        radial-gradient(ellipse at bottom left, rgba(34, 211, 238, 0.1), transparent 50%);
+        }
+
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            position: relative;
+        }
+
+        header {
+            background: rgba(24, 24, 27, 0.6);
+            backdrop-filter: blur(20px);
+            padding: 80px 50px;
+            border-radius: 32px;
+            margin-bottom: 50px;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #06b6d4, #0ea5e9, #22d3ee, #06b6d4);
+            background-size: 200% 100%;
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.1), transparent 70%);
+            transform: translate(-50%, -50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
+        }
+
+        h1 {
+            font-size: 4em;
+            background: linear-gradient(135deg, #06b6d4 0%, #0ea5e9 50%, #22d3ee 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
+            letter-spacing: -2px;
+        }
+
+        .subtitle {
+            font-size: 1.6em;
+            color: #a1a1aa;
+            margin-bottom: 35px;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 35px;
+            margin-top: 35px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #a1a1aa;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            color: #fafafa;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            background: rgba(24, 24, 27, 0.6);
+            backdrop-filter: blur(20px);
+            padding: 50px;
+            border-radius: 32px;
+            margin-bottom: 50px;
+            border: 1px solid rgba(6, 182, 212, 0.15);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.05), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .section:hover::before {
+            left: 100%;
+        }
+
+        .section:hover {
+            border-color: rgba(6, 182, 212, 0.4);
+            transform: translateY(-4px);
+        }
+
+        h2 {
+            color: #fafafa;
+            margin-bottom: 35px;
+            font-size: 2.2em;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #06b6d4, #0ea5e9);
+            border-radius: 2px;
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 25px;
+        }
+
+        .skill-category {
+            background: linear-gradient(135deg, rgba(24, 24, 27, 0.8) 0%, rgba(39, 39, 42, 0.8) 100%);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(14, 165, 233, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .skill-category:hover::before {
+            opacity: 1;
+        }
+
+        .skill-category:hover {
+            border-color: rgba(6, 182, 212, 0.6);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(6, 182, 212, 0.2);
+        }
+
+        .skill-category h3 {
+            color: #fafafa;
+            margin-bottom: 18px;
+            font-size: 1.2em;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tag {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.3) 0%, rgba(14, 165, 233, 0.3) 100%);
+            color: #e4e4e7;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            font-weight: 500;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .tag:hover {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.5) 0%, rgba(14, 165, 233, 0.5) 100%);
+            border-color: rgba(6, 182, 212, 0.6);
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
+        }
+
+        .experience-item {
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .experience-item:hover {
+            padding-left: 10px;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .job-title {
+            font-size: 1.4em;
+            color: #fafafa;
+            font-weight: 700;
+        }
+
+        .job-date {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(14, 165, 233, 0.2));
+            color: #7dd3fc;
+            font-weight: 600;
+            font-size: 0.95em;
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        .company {
+            color: #a1a1aa;
+            margin-bottom: 18px;
+            font-size: 1.1em;
+        }
+
+        .achievement {
+            margin-left: 25px;
+            margin-bottom: 12px;
+            position: relative;
+            color: #d4d4d8;
+            line-height: 1.8;
+            transition: all 0.3s ease;
+        }
+
+        .achievement:hover {
+            color: #fafafa;
+            transform: translateX(5px);
+        }
+
+        .achievement:before {
+            content: "→";
+            position: absolute;
+            left: -25px;
+            color: #06b6d4;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 25px;
+        }
+
+        .cert-card {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(14, 165, 233, 0.15) 100%);
+            backdrop-filter: blur(10px);
+            color: #fafafa;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.15), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .cert-card:hover::before {
+            opacity: 1;
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .cert-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 25px 50px rgba(6, 182, 212, 0.3);
+            border-color: rgba(6, 182, 212, 0.6);
+        }
+
+        .cert-name {
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cert-date {
+            font-size: 0.95em;
+            color: #d4d4d8;
+            position: relative;
+            z-index: 1;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+            margin-top: 25px;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, rgba(24, 24, 27, 0.9) 0%, rgba(39, 39, 42, 0.9) 100%);
+            padding: 35px;
+            border-radius: 20px;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #06b6d4, #0ea5e9, #22d3ee);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.1), transparent 70%);
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.4s ease;
+            border-radius: 50%;
+        }
+
+        .project-card:hover::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .project-card:hover {
+            border-color: rgba(6, 182, 212, 0.6);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-title {
+            color: #fafafa;
+            font-weight: 700;
+            font-size: 1.25em;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-card p {
+            color: #d4d4d8;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        .linkedin-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #0077b5 0%, #005582 100%);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 14px;
+            text-decoration: none;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            font-weight: 700;
+            border: 1px solid #0077b5;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .linkedin-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .linkedin-btn:hover::before {
+            left: 100%;
+        }
+
+        .linkedin-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 32px rgba(0, 119, 181, 0.4);
+        }
+
+        .summary {
+            background: linear-gradient(135deg, rgba(24, 24, 27, 0.9) 0%, rgba(39, 39, 42, 0.9) 100%);
+            padding: 35px;
+            border-radius: 20px;
+            border-left: 4px solid #06b6d4;
+            font-size: 1.1em;
+            line-height: 1.9;
+            color: #d4d4d8;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .subtitle {
+                font-size: 1.2em;
+            }
+
+            .section {
+                padding: 30px;
+            }
+
+            header {
+                padding: 50px 30px;
+            }
+
+            .job-header {
+                flex-direction: column;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section:nth-child(even) {
+            animation-delay: 0.1s;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    <div class="grid-overlay"></div>
+    
+    <div class="container">
+        <header>
+            <h1>Vaibhav Vimil</h1>
+            <div class="subtitle">Data & Solutions Engineer</div>
+            <div class="contact-info">
+                <div class="contact-item">📍 Dallas, TX (Remote OK)</div>
+                <div class="contact-item">📧 460.vai.vimil@gmail.com</div>
+                <div class="contact-item">📱 214-449-9802</div>
+            </div>
+            <a href="https://www.linkedin.com/in/vaibhav-vimil/" target="_blank" class="linkedin-btn">Connect on LinkedIn</a>
+        </header>
+
+        <div class="section">
+            <h2>Professional Summary</h2>
+            <div class="summary">
+                Customer-facing Data & Solutions Engineer with 5+ years of experience supporting enterprise pre-sales, analytics, and data engineering across Fortune 500 environments. Proven ability to partner with Sales and stakeholders to win complex deals through technical discovery, value-based demos, and enterprise Proofs of Concept. Deep hands-on expertise with Snowflake, SQL analytics, Python, Databricks, and Generative AI, translating business problems into scalable architectures with measurable ROI.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Languages & Tools</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">SQL</span>
+                        <span class="tag">PySpark</span>
+                        <span class="tag">Java</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Data Platforms</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Snowflake</span>
+                        <span class="tag">Databricks</span>
+                        <span class="tag">Delta Lake</span>
+                        <span class="tag">Apache Spark</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Cloud & Infrastructure</h3>
+                    <div class="skill-tags">
+                        <span class="tag">AWS</span>
+                        <span class="tag">Azure</span>
+                        <span class="tag">CI/CD</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Data Engineering</h3>
+                    <div class="skill-tags">
+                        <span class="tag">ETL/ELT</span>
+                        <span class="tag">Data Modeling</span>
+                        <span class="tag">Schema Evolution</span>
+                        <span class="tag">Data Quality</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Solution Engineering</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Pre-Sales</span>
+                        <span class="tag">Technical Discovery</span>
+                        <span class="tag">PoC Development</span>
+                        <span class="tag">Demos</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>AI & Analytics</h3>
+                    <div class="skill-tags">
+                        <span class="tag">Generative AI</span>
+                        <span class="tag">LLMs</span>
+                        <span class="tag">ML Forecasting</span>
+                        <span class="tag">Feature Engineering</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Professional Experience</h2>
+            
+            <div class="experience-item">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Senior Software Engineer (Data & Solutions Engineering)</div>
+                        <div class="company">AT&T | Plano, TX</div>
+                    </div>
+                    <div class="job-date">May 2024 – Present</div>
+                </div>
+                <div class="achievement">Partnered with Sales and business stakeholders to support pre-sales engagements by designing Snowflake-native architectures for analytics, ML, and AI workloads</div>
+                <div class="achievement">Led technical discovery sessions covering ingestion, governance, security, performance, and cost optimization</div>
+                <div class="achievement">Owned enterprise Proofs of Concept using SQL and Python, processing ~500GB per run with incremental loading and schema evolution</div>
+                <div class="achievement">Reduced Snowflake query runtimes by 88% and improved analytics reliability for sales, marketing, and finance teams</div>
+                <div class="achievement">Spearheaded Generative AI integration using fine-tuned LLM models to detect address mismatches and eliminate duplicate entries across enterprise systems</div>
+                <div class="achievement">Built analytics-ready datasets and metrics views enabling self-serve reporting across the organization</div>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Software Engineer (Data & Analytics)</div>
+                        <div class="company">AT&T | Dallas, TX</div>
+                    </div>
+                    <div class="job-date">July 2022 – April 2024</div>
+                </div>
+                <div class="achievement">Built scalable batch pipelines in Databricks using PySpark, reducing processing time by 72%</div>
+                <div class="achievement">Developed ELT workflows into Snowflake, eliminating manual processes and cutting execution time by 83%</div>
+                <div class="achievement">Created analytics-ready forecasting datasets achieving 92% R² accuracy for business planning</div>
+                <div class="achievement">Engineered fraud detection program using LLMs to identify high-similarity credit applications, improving risk assessment</div>
+                <div class="achievement">Implemented advanced regression models driving 25% increase in Fiber Penetration (29% to 54%)</div>
+                <div class="achievement">Established best practices for analytics datasets including validation, documentation, and standardized transformations</div>
+            </div>
+
+            <div class="experience-item">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Software Engineer Intern</div>
+                        <div class="company">AT&T | Dallas, TX</div>
+                    </div>
+                    <div class="job-date">May 2021 – July 2021</div>
+                </div>
+                <div class="achievement">Engineered dashboard visualizing extracted data from deep databases via API calls and web application</div>
+                <div class="achievement">Automated analytics dashboards and reporting pipelines using Python and SQL, saving 75 labor hours annually</div>
+                <div class="achievement">Orchestrated end-to-end data pipelines for processing raw data using Python and SQL</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-title">Self-Serve Sports Analytics Platform (NFL)</div>
+                    <p>Designed Snowflake + Databricks reference architecture with bronze/silver/gold layers. Built demo-ready datasets showcasing self-service analytics, incremental loads, data validation, and performance optimization for pre-sales demonstrations.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">Gaming Analytics – Player Engagement & Retention</div>
+                    <p>Developed scalable analytics pipelines modeling churn and retention with schema evolution handling. Used as demo scenarios to explain incremental loads and analytics best practices to technical audiences.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">Fraud Detection with LLMs</div>
+                    <p>Built fraud detection program using Databricks, PySpark, and LLMs to identify credit applications with high similarity to historical data, optimizing execution time by 72% compared to previous models.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">Enterprise Data Quality Initiative</div>
+                    <p>Led LLM-driven data quality initiatives leveraging similarity scoring to detect duplicate and mismatched records across enterprise systems, improving data trust and reliability.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Certifications</h2>
+            <div class="certifications-grid">
+                <div class="cert-card">
+                    <div class="cert-name">AWS Solutions Architect – Associate</div>
+                    <div class="cert-date">January 2025</div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-name">Snowflake SnowPro Core</div>
+                    <div class="cert-date">January 2025</div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-name">DeepLearning.AI Generative AI with LLM</div>
+                    <div class="cert-date">December 2023</div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-name">Databricks Lakehouse Fundamentals</div>
+                    <div class="cert-date">July 2023</div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-name">SAFe 5 Agilist</div>
+                    <div class="cert-date">March 2023</div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-name">Microsoft Azure AI Fundamentals</div>
+                    <div class="cert-date">June 2022</div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-name">Microsoft Azure Data Fundamentals</div>
+                    <div class="cert-date">June 2022</div>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-name">AWS Cloud Practitioner</div>
+                    <div class="cert-date">December 2020</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Education</h2>
+            <div class="experience-item">
+                <div class="job-header">
+                    <div>
+                        <div class="job-title">Bachelor of Science in Computer Science</div>
+                        <div class="company">University of Texas at Dallas</div>
+                    </div>
+                    <div class="job-date">2020 – 2022</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Patents</h2>
+            <div class="experience-item">
+                <div class="job-title">Connectivity using V2X Ad-Hoc Network</div>
+                <div class="company">Patent Pending</div>
+                <p style="margin-top: 10px; color: #d4d4d8;">Innovative approach to maximize connectivity utilizing vehicle-to-everything (V2X) ad-hoc network technology.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
